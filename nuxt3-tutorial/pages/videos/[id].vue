@@ -2,6 +2,8 @@
     <div>
         Voçê esta no video de número {{ idParams }}
     </div>
+    <VideoDetalhes />
+    <VideoControlePlay />
 </template>
 <script setup>
 const route = useRoute();
