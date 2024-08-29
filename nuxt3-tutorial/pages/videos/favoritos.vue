@@ -9,7 +9,7 @@
             <iframe width="500" height="400" :src="video.url" title="Youtube video player" frameborder="0" />
 
             <div>
-                <button @click="videoStore.deletaFavorito(video.id)">Remover Favorito</button>
+                <button @click="removeFavorito(video.id)">Remover Favorito</button>
             </div>
         </div>
     </div>
@@ -17,14 +17,16 @@
 <script setup lang="ts">
 import { useVideoStore } from '~/stores/video';
 
-// const favoritos = useFavoritos()
+const { $toast } = useNuxtApp()
+
 const videoStore = useVideoStore()
 const { favoritos } = storeToRefs(videoStore)
 
-/* const deleteFavorito = (id: Number) => {
-    const favoritosFiltrados = favoritos.value.filter((videoFavorito) => videoFavorito.id !== id)
-    favoritos.value = favoritosFiltrados
-} */
+const removeFavorito = (id: number) => {
+    videoStore.deletaFavorito(id)
+    $toast.error('Removido com sucesso')
+
+}
 
 </script>
 
