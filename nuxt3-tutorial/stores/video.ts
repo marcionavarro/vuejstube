@@ -17,4 +17,12 @@ export const useVideoStore = defineStore("videos", () => {
     }
 
     return { favoritos, adicionarFavorito, deletaFavorito }
+}, {
+    // persist: true
+    persist: {
+        // key: 'my-custom-key', // salva no cookie com nome da key
+        storage: typeof window !== 'undefined' ? localStorage : undefined,
+        // storage: typeof window !== 'undefined' ? sessionStorage : undefined,
+
+    }
 })
