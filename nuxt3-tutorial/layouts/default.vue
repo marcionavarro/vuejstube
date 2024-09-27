@@ -3,7 +3,7 @@
         <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
                 <NuxtLink to="/">
-                    <span class="font-semibold text-xl tracking-tight">Pablo Codes</span>
+                    <span class="font-semibold text-xl tracking-tight">Marcio Navarro</span>
                 </NuxtLink>
             </div>
             <div class="block lg:hidden">
@@ -51,18 +51,34 @@
                 </div>
             </div>
         </nav>
-        <UContainer>
+        <UContainer class="my-10">
             <slot></slot>
         </UContainer>
-        Rodapé padrão
+        <UDivider
+            label="Marcio Navarro Fullstack Developer"
+            :ui="{ label: 'text-primary-500 dark:text-primary-400' }"
+        />
+
+        Rodapé Padrão
     </div>
 </template>
 
 <script setup lang="ts">
 const { locale } = useI18n();
 const isOpen = ref(false)
+const colorMode = useColorMode()
 
 const toggleMenu = () => {
     isOpen.value = !isOpen.value;
 }
+
+
+const isDark = computed({
+  get () {
+    return colorMode.value === 'dark'
+  },
+  set () {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  }
+})
 </script>
