@@ -1,0 +1,50 @@
+version: "3"
+services:
+  nuxt-app:
+    container_name: nuxt_app
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PGHOST: postgres-compose
+      PGUSER: admin
+      PGPASSWORD: admin123
+      PGDATABASE: nuxt_tutorial
+      PGPORT: 5432
+    depends_on:
+      - postgres-compose
+    networks:
+      - postgres-compose-network
+
+  postgres-compose:
+    container_name: postgres_compose
+    image: postgres
+    volumes:
+      - .docker/pgdata:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_PASSWORD: "admin123"
+      POSTGRES_USER: "admin"
+    networks:
+      - postgres-compose-network
+
+  pgadmin-compose:
+    container_name: pgadmin_compose
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin123"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres-compose
+    networks:
+      - postgres-compose-network
+
+networks:
+  postgres-compose-network:
+    driver: bridge
+
+volumes:
+  pgdata:
