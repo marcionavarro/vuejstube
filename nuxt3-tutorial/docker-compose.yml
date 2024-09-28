@@ -11,6 +11,9 @@ services:
       PGPASSWORD: admin123
       PGDATABASE: nuxt_tutorial
       PGPORT: 5432
+    volumes:
+      - .:/app
+      - /node_modules
     depends_on:
       - postgres-compose
     networks:
@@ -20,7 +23,7 @@ services:
     container_name: postgres_compose
     image: postgres
     volumes:
-      - .docker/pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "15432:5432"
     environment:

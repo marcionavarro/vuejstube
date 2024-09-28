@@ -70,13 +70,15 @@ import type { Video } from "~/interfaces/video";
 import { useVideoStore } from "~/stores/video";
 
 const { $toast } = useNuxtApp();
-
-onMounted(() => {});
-
 const { adicionarFavorito } = useVideoStore();
+const videos = ref<Video[]>([]);
 
 const favoritar = (video: Video) => {
   adicionarFavorito(video);
   $toast.success("Toast adicionado com sucesso");
 };
+
+onMounted(async () => {
+  videos.value = await $fetch("/api/v1/videos");
+});
 </script>

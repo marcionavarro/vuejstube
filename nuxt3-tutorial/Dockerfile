@@ -10,8 +10,8 @@ RUN npm install
 # Copia o código da aplicação
 COPY . .
 
-# Constrói a aplicação Nuxt para produção
-RUN npm run build
+# build Constrói a aplicação Nuxt para produção
+RUN npm run dev 
 
 # Etapa 2: Produção
 FROM node:18 as production-stage
