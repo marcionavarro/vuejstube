@@ -16,8 +16,9 @@
             variant="solid"
             size="xs"
             v-data-horario='"dd / mm / yyyy"'
-          >{{
-                        video.data_postagem }}</UBadge>
+          >
+            {{video.data_postagem }}
+          </UBadge>
         </div>
       </template>
 
