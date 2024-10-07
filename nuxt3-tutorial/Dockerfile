@@ -1,5 +1,6 @@
 # Etapa 1: Build
-FROM node:18 as build-stage
+FROM node:18 
+##as build-stage
 
 WORKDIR /app
 
@@ -11,18 +12,18 @@ RUN npm install
 COPY . .
 
 # build Constrói a aplicação Nuxt para produção
-RUN npm run dev 
+##RUN npm run dev 
 
 # Etapa 2: Produção
-FROM node:18 as production-stage
+##FROM node:18 as production-stage
 
-WORKDIR /app
+##WORKDIR /app
 
 # Copia os arquivos de build do estágio anterior
-COPY --from=build-stage /app /app
+##COPY --from=build-stage /app /app
 
 # Instala apenas as dependências necessárias para produção
-RUN npm install --production
+##RUN npm install --production
 
 # Expõe a porta 3000 (ou outra que sua aplicação use)
 EXPOSE 3000

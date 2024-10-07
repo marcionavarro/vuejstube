@@ -14,7 +14,7 @@ export default defineNuxtPlugin(({ vueApp }) => {
     toast.error = (message: Content) =>
         toast(message, {
             type: 'error',
-            position: 'bottom-right',
+            position: 'bottom-left',
             icon: 'X',
             theme: 'dark'
         })

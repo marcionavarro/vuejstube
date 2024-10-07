@@ -3,19 +3,19 @@
     <template #header>
       <div class="flex justify-between items-center">
         <h2>{{ video.descricao }}</h2>
+
         <UBadge
           color="black"
           variant="solid"
           size="xs"
-          v-data-horario='"dd / mm / yyyy"'
         >
-          {{video.data_postagem }}
+        {{ formataData(video.data_postagem) }}
         </UBadge>
       </div>
     </template>
 
     <iframe
-      class="h-[500px] w-full"
+      class="h-[600px] w-full"
       :src="video.url"
       title="Youtube video player"
       frameborder="0"

@@ -74,7 +74,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import videosController from "~/server/routes/videos-controller";
 import { useVideoStore } from "~/stores/video";
 
 const { $toast } = useNuxtApp();

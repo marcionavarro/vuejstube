@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { diasPassados, diferencaEmDias } = useFormatacao()
+const { diasPassados, diferencaEmDias } = useUtils()
 
 const dataVideo = new Date(2024, 5, 19)
 diasPassados(dataVideo)
