@@ -7,8 +7,9 @@ export default () => {
     const rotas: Rotas[] = [
         { nome: "Home", path: '/' },
         { nome: "Videos", path: '/videos' },
+        { nome: "Clientes", path: '/clientes' },
+        { nome: "Favoritos", path: '/videos/favoritos' },
         { nome: "Adicionar Videos", path: '/videos/adicionar' },
-        { nome: "Favoritos", path: '/videos/favoritos' }
     ];
     return rotas;
 }
