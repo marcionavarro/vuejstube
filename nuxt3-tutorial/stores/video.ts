@@ -16,13 +16,16 @@ export const useVideoStore = defineStore("videos", () => {
         favoritos.value = favoritosFiltrados
     }
 
-    return { favoritos, adicionarFavorito, deletaFavorito }
+    const isFavorited = (video: Video) => {
+        return favoritos.value.some(fav => fav.id === video.id)
+    }
+
+    return { favoritos, adicionarFavorito, deletaFavorito, isFavorited }
 }, {
     // persist: true
     persist: {
         // key: 'my-custom-key', // salva no cookie com nome da key
         storage: typeof window !== 'undefined' ? localStorage : undefined,
         // storage: typeof window !== 'undefined' ? sessionStorage : undefined,
-
     }
 })

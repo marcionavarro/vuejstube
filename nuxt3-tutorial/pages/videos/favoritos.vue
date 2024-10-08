@@ -3,10 +3,17 @@
     <h1 class="text-4xl text-center my-5">{{ $t("tituloFavorito") }}</h1>
   </div>
 
-  <div class="w-3/5">
+  <div class="w-full">
     <UAlert
       v-if="favoritos.length <= 0"
-      :actions="[{ variant: 'solid', color: 'primary', label: 'Videos' }]"
+      :actions="[
+        { 
+          variant: 'solid', 
+          color: 'primary', 
+          label: 'Videos',
+          click: navigateToVideos
+        }
+      ]"
       title="Não existem favoritos no momento!"
       description="Clique no botão abaixo e adicione seus videos favoritos"
     />
@@ -25,8 +32,9 @@
             variant="solid"
             size="xs"
             v-data-horario='"dd / mm / yyyy"'
-          >{{
-                        video.data_postagem }}</UBadge>
+          >
+            {{video.data_postagem }}
+          </UBadge>
         </div>
       </template>
 
@@ -75,6 +83,9 @@
 </template>
 <script setup lang="ts">
 import { useVideoStore } from "~/stores/video";
+import { useRouter } from "vue-router";
+
+const router = useRouter()
 
 const { $toast } = useNuxtApp();
 
@@ -84,6 +95,10 @@ const { favoritos } = storeToRefs(videoStore);
 const removeFavorito = (id: number) => {
   videoStore.deletaFavorito(id);
   $toast.error("Removido com sucesso");
+};
+
+const navigateToVideos = () => {
+  router.push('/videos'); 
 };
 </script>
 

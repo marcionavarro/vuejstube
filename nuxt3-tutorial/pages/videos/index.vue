@@ -55,8 +55,9 @@
           >
             <template #trailing>
               <UIcon
-                name="i-heroicons:heart"
+                name="i-heroicons:heart-16-solid"
                 class="w-5 h-5"
+                :class="{active: favorited(video)}"
               />
             </template>
           </UButton>
@@ -70,16 +71,42 @@
 import type { Video } from "~/interfaces/video";
 import { useVideoStore } from "~/stores/video";
 
-const { $toast } = useNuxtApp();
-const { adicionarFavorito } = useVideoStore();
+const { adicionarFavorito, deletaFavorito, isFavorited } = useVideoStore();
 const videos = ref<Video[]>([]);
 
+const FAVORITOS_KEY = 'videos';
+
 const favoritar = (video: Video) => {
-  adicionarFavorito(video);
-  $toast.success("Toast adicionado com sucesso");
+  const { favoritos } = JSON.parse(localStorage.getItem('videos') ?? '[]');
+  const videoIndex = favoritos.findIndex((fav: Video) => fav.id === video.id);
+  return toggleFavorited(videoIndex, video, favoritos)
 };
+
+const favorited = (video: Video) => {
+  return isFavorited(video)
+}
+
+const toggleFavorited = (videoIndex: number, video: Video, favoritos: string[]) => {
+  if (videoIndex === -1) {
+    adicionarFavorito(video);
+  } else {
+    setFavoritoStorage(favoritos)
+    deletaFavorito(video.id)
+  }
+}
+
+const setFavoritoStorage = (favoritos: string[]) => {
+  return localStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritos));
+}
 
 onMounted(async () => {
   videos.value = await $fetch("/api/v1/videos");
 });
 </script>
+
+<style scoped>
+.active {
+  color: red;
+  background-color: red;
+}
+</style>
