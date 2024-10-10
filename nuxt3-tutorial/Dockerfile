@@ -3,6 +3,7 @@ FROM node:18
 ##as build-stage
 
 WORKDIR /app
+#WORKDIR /frontend
 
 # Copia o package.json e instala as dependências
 COPY package*.json ./

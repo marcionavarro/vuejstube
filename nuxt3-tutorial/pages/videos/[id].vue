@@ -4,58 +4,28 @@
       <div class="flex justify-between items-center">
         <h2>{{ video.descricao }}</h2>
 
-        <UBadge
-          color="black"
-          variant="solid"
-          size="xs"
-        >
-        {{ formataData(video.data_postagem) }}
+        <UBadge color="black" variant="solid" size="xs">
+          {{ formataData(video.data_postagem) }}
         </UBadge>
       </div>
     </template>
 
-    <iframe
-      class="h-[600px] w-full"
-      :src="video.url"
-      title="Youtube video player"
-      frameborder="0"
-    />
+    <iframe class="h-[600px] w-full" :src="video.url" title="Youtube video player" frameborder="0" />
 
     <template #footer>
       <div class="flex justify-between items-center">
         <div>
-          <UButton
-            icon="i-heroicons-pencil-square"
-            size="sm"
-            color="primary"
-            variant="solid"
-            label="Editar"
-            :trailing="false"
-            @click="abrirModal "
-          />
+          <UButton icon="i-heroicons-pencil-square" size="sm" color="primary" variant="solid" label="Editar"
+            :trailing="false" @click="abrirModal" />
           <UModal v-model="isOpen">
             <div class="p-4">
-              <UForm
-                :validate="validate"
-                :state="state"
-                class="space-y-4"
-                @submit="onSubmit"
-              >
-                <UFormGroup
-                  label="Descricão"
-                  name="descricao"
-                >
+              <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
+                <UFormGroup label="Descricão" name="descricao">
                   <UInput v-model="state.descricao" />
                 </UFormGroup>
 
-                <UFormGroup
-                  label="Url"
-                  name="url"
-                >
-                  <UInput
-                    v-model="state.url"
-                    type="url"
-                  />
+                <UFormGroup label="Url" name="url">
+                  <UInput v-model="state.url" type="url" />
                 </UFormGroup>
 
                 <UButton type="submit">
@@ -67,25 +37,14 @@
         </div>
 
         <div class="basis-46 justify-between items-center">
-          <NuxtLink :to="{name: 'videos'}">
-            <UButton
-              label="Voltar"
-              color="gray"
-            >
+          <NuxtLink :to="{ name: 'videos' }">
+            <UButton label="Voltar" color="gray">
             </UButton>
           </NuxtLink>
 
-          <UButton
-            color="red"
-            variant="link"
-            label="Excluir video"
-            @click="deletarVideo"
-          >
+          <UButton color="red" variant="link" label="Excluir video" @click="deletarVideo">
             <template #trailing>
-              <UIcon
-                name="i-heroicons:trash"
-                class="w-5 h-5"
-              />
+              <UIcon name="i-heroicons:trash" class="w-5 h-5" />
             </template>
           </UButton>
         </div>
@@ -96,18 +55,22 @@
 </template>
 
 <script setup lang="ts">
-import type { Video } from "~/interfaces/video";
 import type { FormError, FormSubmitEvent } from "#ui/types";
 
 const route = useRoute();
-const video = ref<Video>({} as Video);
+const { id } = route.params;
 const isOpen = ref<boolean>(false);
 const router = useRouter();
 const { $toast } = useNuxtApp();
 
-onMounted(async () => {
-  video.value = await $fetch(`/api/v1/videos/${route.params.id}`);
-});
+const { data: video } = await useFetch(`/api/v1/videos/${id}`)
+
+if (!video.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Vídeo não encontrado"
+  })
+}
 
 const state = reactive({
   id: 0,

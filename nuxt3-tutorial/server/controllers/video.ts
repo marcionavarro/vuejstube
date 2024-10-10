@@ -5,8 +5,12 @@ import { H3Event } from "h3"
 const { client } = postgresClient()
 
 export const buscaVideos = async () => {
-    const resultado = await client.query('SELECT * FROM videos ORDER BY descricao ASC')
+    throw createError({
+        statusCode: 500,
+        statusMessage: "Erro ao acessar o banco de dados"
+    })
 
+    const resultado = await client.query('SELECT * FROM videos ORDER BY descricao ASC')
     return resultado.rows as Video[]
 }
 
@@ -20,7 +24,7 @@ export const buscaVideoPorId = async (event: H3Event) => {
 export const adicionaVideo = async (event: H3Event): Promise<string> => {
     try {
         const request = await readBody(event)
-        await client.query("INSERT INTO videos (descricao, url, data_postagem) VALUES ($1, $2, CURRENT_DATE)", 
+        await client.query("INSERT INTO videos (descricao, url, data_postagem) VALUES ($1, $2, CURRENT_DATE)",
             [request.descricao, request.url]
         )
         return "Vídeo adicionado com sucesso!"
@@ -35,7 +39,7 @@ export const adicionaVideo = async (event: H3Event): Promise<string> => {
 export const atualizaVideo = async (event: H3Event): Promise<string> => {
     try {
         const request = await readBody(event)
-        await client.query("UPDATE videos SET descricao = $1, url = $2, data_postagem = CURRENT_DATE WHERE id = $3", 
+        await client.query("UPDATE videos SET descricao = $1, url = $2, data_postagem = CURRENT_DATE WHERE id = $3",
             [request.descricao, request.url, request.id]
         )
         return "Vídeo atualizado com sucesso!"
