@@ -1,7 +1,9 @@
 <template>
-    <Header />
     <div>
-        <h1>Página Inicial</h1>
+        <Header />
+        <div>
+            <h1>Página Inicial</h1>
+        </div>
     </div>
 </template>
 <script>

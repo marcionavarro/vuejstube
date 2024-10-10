@@ -1,57 +1,58 @@
 <template>
-  <UCard class="justify-center w-full">
-    <template #header>
-      <div class="flex justify-between items-center">
-        <h2>{{ video.descricao }}</h2>
+  <div>
+    <UCard class="justify-center w-full">
+      <template #header>
+        <div class="flex justify-between items-center">
+          <h2>{{ video.descricao }}</h2>
 
-        <UBadge color="black" variant="solid" size="xs">
-          {{ formataData(video.data_postagem) }}
-        </UBadge>
-      </div>
-    </template>
-
-    <iframe class="h-[600px] w-full" :src="video.url" title="Youtube video player" frameborder="0" />
-
-    <template #footer>
-      <div class="flex justify-between items-center">
-        <div>
-          <UButton icon="i-heroicons-pencil-square" size="sm" color="primary" variant="solid" label="Editar"
-            :trailing="false" @click="abrirModal" />
-          <UModal v-model="isOpen">
-            <div class="p-4">
-              <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
-                <UFormGroup label="Descricão" name="descricao">
-                  <UInput v-model="state.descricao" />
-                </UFormGroup>
-
-                <UFormGroup label="Url" name="url">
-                  <UInput v-model="state.url" type="url" />
-                </UFormGroup>
-
-                <UButton type="submit">
-                  Salvar
-                </UButton>
-              </UForm>
-            </div>
-          </UModal>
+          <UBadge color="black" variant="solid" size="xs">
+            {{ formataData(video.data_postagem) }}
+          </UBadge>
         </div>
+      </template>
 
-        <div class="basis-46 justify-between items-center">
-          <NuxtLink :to="{ name: 'videos' }">
-            <UButton label="Voltar" color="gray">
+      <iframe class="h-[600px] w-full" :src="video.url" title="Youtube video player" frameborder="0" />
+
+      <template #footer>
+        <div class="flex justify-between items-center">
+          <div>
+            <UButton icon="i-heroicons-pencil-square" size="sm" color="primary" variant="solid" label="Editar"
+              :trailing="false" @click="abrirModal" />
+            <UModal v-model="isOpen">
+              <div class="p-4">
+                <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
+                  <UFormGroup label="Descricão" name="descricao">
+                    <UInput v-model="state.descricao" />
+                  </UFormGroup>
+
+                  <UFormGroup label="Url" name="url">
+                    <UInput v-model="state.url" type="url" />
+                  </UFormGroup>
+
+                  <UButton type="submit">
+                    Salvar
+                  </UButton>
+                </UForm>
+              </div>
+            </UModal>
+          </div>
+
+          <div class="basis-46 justify-between items-center">
+            <NuxtLink :to="{ name: 'videos' }">
+              <UButton label="Voltar" color="gray">
+              </UButton>
+            </NuxtLink>
+
+            <UButton color="red" variant="link" label="Excluir video" @click="deletarVideo">
+              <template #trailing>
+                <UIcon name="i-heroicons:trash" class="w-5 h-5" />
+              </template>
             </UButton>
-          </NuxtLink>
-
-          <UButton color="red" variant="link" label="Excluir video" @click="deletarVideo">
-            <template #trailing>
-              <UIcon name="i-heroicons:trash" class="w-5 h-5" />
-            </template>
-          </UButton>
+          </div>
         </div>
-      </div>
-    </template>
-  </UCard>
-
+      </template>
+    </UCard>
+  </div>
 </template>
 
 <script setup lang="ts">
