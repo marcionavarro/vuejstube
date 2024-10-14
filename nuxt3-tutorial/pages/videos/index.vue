@@ -5,7 +5,7 @@
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
-      <UCard v-for="video in videos" :key="video.id">
+      <UCard v-for="video in paginatedVideos" :key="video.id">
         <template #header>
           <div class="flex justify-between items-center">
             <h2>{{ video.descricao }}</h2>
@@ -25,7 +25,7 @@
             }">
               <UButton label="Ver video" color="gray">
                 <template #trailing>
-                  <UIcon name="i-heroicons-arrow-right-20-solid" class="w-5 h-5" />
+                  <UIcon name="i-heroicons:eye-solid" class="w-5 h-5" />
                 </template>
               </UButton>
             </NuxtLink>
@@ -39,16 +39,29 @@
         </template>
       </UCard>
     </div>
+
+    <UPagination v-if="videos.length > pageCount" v-model="page" :page-count="pageCount" :total="videos.length"
+      size="lg" show-last show-first class="justify-center mt-14" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from "vue";
 import type { Video } from "~/interfaces/video";
 import { useVideoStore } from "~/stores/video";
+
 const { $toast } = useNuxtApp();
 
 const { adicionarFavorito, deletaFavorito, isFavorited } = useVideoStore();
 const { data: videos, error } = await useFetch("/api/v1/videos");
+
+const page = ref(1)
+const pageCount = ref(6)
+
+
+const paginatedVideos = computed(() => {
+  return videos.value.slice((page.value - 1) * pageCount.value, (page.value) * pageCount.value)
+})
 
 
 const FAVORITOS_KEY = 'videos';

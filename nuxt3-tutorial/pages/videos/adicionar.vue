@@ -1,31 +1,25 @@
 <template>
-  <UForm
-    :validate="validate"
-    :state="state"
-    class="space-y-4"
-    @submit="onSubmit"
-  >
-    <UFormGroup
-      label="Descricão"
-      name="descricao"
-    >
-      <UInput v-model="state.descricao" />
-    </UFormGroup>
+  <div>
+    <div>
+      <h1 class="text-4xl text-center my-5">{{ $t("adicionarVideo") }}</h1>
+    </div>
 
-    <UFormGroup
-      label="Url"
-      name="url"
-    >
-      <UInput
-        v-model="state.url"
-        type="url"
-      />
-    </UFormGroup>
+    <UCard class="w-1/2 mx-auto mt-20 p-10">
+      <UForm :validate="validate" :state="state" class="space-y-4 p-10" @submit="onSubmit">
+        <UFormGroup label="Descricão" name="descricao">
+          <UInput v-model="state.descricao" />
+        </UFormGroup>
 
-    <UButton type="submit">
-      salvar
-    </UButton>
-  </UForm>
+        <UFormGroup label="Url" name="url">
+          <UInput v-model="state.url" type="url" />
+        </UFormGroup>
+
+        <UButton type="submit">
+          salvar
+        </UButton>
+      </UForm>
+    </UCard>
+  </div>
 </template>
 
 <script setup lang="ts">

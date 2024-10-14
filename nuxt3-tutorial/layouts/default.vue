@@ -24,7 +24,7 @@
             {{ rota.nome }}
           </NuxtLink>
         </div>
-        <div>
+        <div class="flex items-center gap-5">
           <ClientOnly>
             <UButton :icon="isDark
               ? 'i-heroicons-moon-20-solid'
@@ -34,17 +34,21 @@
               <div class="w-8 h-8" />
             </template>
           </ClientOnly>
-          <select v-model="locale" class="ml-8">
+
+          <USelect v-model="locale" icon="i-heroicons:globe-alt-solid" color="white" size="sm" :options="options"
+            placeholder="Tradutor..." />
+
+          <!-- <select v-model="locale" class="ml-8">
+            <option selected>Tradutor...</option>
             <option value="pt">pt</option>
             <option value="en">en</option>
-          </select>
+          </select> -->
         </div>
       </div>
     </nav>
-    <UContainer class="my-10">
+    <UContainer class="my-10 h-dvh">
       <slot></slot>
     </UContainer>
-
 
     <Footer />
   </div>
@@ -54,8 +58,14 @@
 import Footer from '~/components/Footer.vue';
 
 const { locale } = useI18n();
-const isOpen = ref(false);
 const colorMode = useColorMode();
+
+const isOpen = ref(false);
+
+const options = ref([
+  { label: 'Português', value: 'pt' },
+  { label: 'Inglês', value: 'en' }
+])
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value;
@@ -69,4 +79,5 @@ const isDark = computed({
     colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
   },
 });
+
 </script>

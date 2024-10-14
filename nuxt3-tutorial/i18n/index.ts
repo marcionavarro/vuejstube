@@ -20,7 +20,8 @@ export default ({
         pt,
         en: {
             titulo: "My Videos",
-            tituloFavorito: 'My Favorites'
+            tituloFavorito: 'My Favorites',
+            adicionaVideo: 'Add Video'
         }
     }
 })

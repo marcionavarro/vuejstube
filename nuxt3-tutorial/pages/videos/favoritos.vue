@@ -37,12 +37,12 @@
             }">
               <UButton label="Ver video" color="gray">
                 <template #trailing>
-                  <UIcon name="i-heroicons-arrow-right-20-solid" class="w-5 h-5" />
+                  <UIcon name="i-heroicons:eye-solid" class="w-5 h-5" />
                 </template>
               </UButton>
             </NuxtLink>
 
-            <UButton color="red" variant="link" @click="removeFavorito(video.id)">
+            <UButton color="red" variant="link" label="Excluir favorito" @click="removeFavorito(video.id)">
               <template #trailing>
                 <UIcon name="i-heroicons:trash" class="w-5 h-5" />
               </template>
