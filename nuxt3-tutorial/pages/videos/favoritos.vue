@@ -15,7 +15,7 @@
       ]" :title="t('tituloSemFavoritos') + '!'" :description="t('descricaoSemFavoritos') + '.'" />
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-3 items-stretch justify-center gap-4">
       <UCard v-for="video in favoritos" :key="video.id">
         <template #header>
           <div class="flex justify-between items-center">

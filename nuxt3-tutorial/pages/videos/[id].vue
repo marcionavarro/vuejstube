@@ -37,17 +37,34 @@
             </UModal>
           </div>
 
-          <div class="basis-46 justify-between items-center">
+          <div class="flex justify-between items-center">
             <NuxtLink :to="{ name: 'videos' }">
               <UButton :label="t('botaoVoltar')" color="gray">
               </UButton>
             </NuxtLink>
 
-            <UButton color="red" variant="link" :label="t('botaoExcluir')" @click="deletarVideo">
-              <template #trailing>
-                <UIcon name="i-heroicons:trash" class="w-5 h-5" />
-              </template>
-            </UButton>
+            <UButton icon="i-heroicons:trash" color="red" variant="link" :label="t('botaoExcluir')"
+              @click="abrirModalExcluir" />
+
+            <UModal v-model="isOpenExcluir" prevent-close>
+              <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+                <template #header>
+                  <div class="flex justify-between">
+                    <div class="flex items-end">
+                      <UIcon name="heroicons:arrow-turn-left-down-16-solid" class="mr-1" />
+                      <span>Tem certeza que deseja deletar o video ?</span>
+                    </div>
+                    <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+                      @click="isOpenExcluir = false" />
+                  </div>
+                  {{ video.descricao }}
+                </template>
+
+                <UButton icon="i-heroicons:trash" size="sm" color="rose" variant="solid" :label="t('botaoExcluir')"
+                  :trailing="false" @click="deletarVideo" />
+
+              </UCard>
+            </UModal>
           </div>
         </div>
       </template>
@@ -63,6 +80,7 @@ import { formataData } from "#imports";
 const route = useRoute();
 const router = useRouter();
 const isOpen = ref<boolean>(false);
+const isOpenExcluir = ref<boolean>(false);
 
 const { $toast } = useNuxtApp();
 const { id } = route.params;
@@ -111,9 +129,13 @@ const deletarVideo = async () => {
     await $fetch(`/api/v1/videos/${route.params.id}`, {
       method: "DELETE",
     });
-    router.push("/videos");
     $toast.success("Video deletado com sucesso!");
     isOpen.value = false;
+
+    setTimeout(() => {
+      router.push("/videos");
+    }, 3000)
+
   } catch (error) {
     $toast.error("Erro ao deletado com video!");
     console.log("error: ", error);
@@ -125,6 +147,10 @@ const abrirModal = () => {
   state.descricao = video.value.descricao;
   state.url = video.value.url;
   isOpen.value = true;
+};
+
+const abrirModalExcluir = () => {
+  isOpenExcluir.value = true;
 };
 </script>
 <style lang="">

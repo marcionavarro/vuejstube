@@ -4,7 +4,7 @@
       <h1 class="text-4xl text-center my-5">{{ t("titulo") }}</h1>
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-3 items-stretch justify-center gap-4">
       <UCard v-for="video in paginatedVideos" :key="video.id">
         <template #header>
           <div class="flex justify-between items-center">
