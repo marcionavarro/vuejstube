@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="text-4xl text-center my-5">{{ $t("titulo") }}</h1>
+      <h1 class="text-4xl text-center my-5">{{ t("titulo") }}</h1>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
@@ -23,7 +23,7 @@
               name: 'videos-id',
               params: { id: video.id.toString() }
             }">
-              <UButton label="Ver video" color="gray">
+              <UButton :label="t('botaoVerVideo')" color="gray">
                 <template #trailing>
                   <UIcon name="i-heroicons:eye-solid" class="w-5 h-5" />
                 </template>
@@ -50,6 +50,7 @@ import { ref, computed } from "vue";
 import type { Video } from "~/interfaces/video";
 import { useVideoStore } from "~/stores/video";
 
+const { t } = useI18n();
 const { $toast } = useNuxtApp();
 
 const { adicionarFavorito, deletaFavorito, isFavorited } = useVideoStore();

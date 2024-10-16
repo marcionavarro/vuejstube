@@ -1,7 +1,27 @@
 {
     "pt": {
-        "titulo": "Meus Videos",
-        "tituloFavorito": "Meus Favoritos",
-        "adicionarVideo": "Adicionar Video"
+        "menu": {
+            "Inicio": "Inicio",
+            "Videos": "Videos",
+            "Clientes": "Clientes",
+            "Favoritos": "Favoritos",
+            "Adicionar Video": "Adicionar video"
+        },
+        "titulo": "Meus videos",
+        "tituloFavorito": "Meus favoritos",
+        "tituloClientes": "Clientes",
+        "adicionarVideo": "Adicionar video",
+        "carregando": "Carregando",
+        "descricao": "Descrição",
+        "botaoRecarregar": "Recarregar",
+        "botaoVerVideo": "Ver video",
+        "botaoSalvar": "Salvar",
+        "botaoEditar": "Editar",
+        "botaoExcluir": "Excluir video",
+        "botaoExcluirFavorito": "Excluir favorito",
+        "botaoVoltar": "Voltar",
+        "tituloSemFavoritos": "Não existem favoritos no momento",
+        "descricaoSemFavoritos": "Clique no botão abaixo e adicione seus videos favoritos",
+        "diretitosReservados": "Todos os direitos reservados"
     }
 }

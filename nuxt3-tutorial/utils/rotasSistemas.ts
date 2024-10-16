@@ -5,11 +5,11 @@ interface Rotas {
 
 export default () => {
     const rotas: Rotas[] = [
-        { nome: "Home", path: '/' },
+        { nome: "Inicio", path: '/' },
         { nome: "Videos", path: '/videos' },
         { nome: "Clientes", path: '/clientes' },
         { nome: "Favoritos", path: '/videos/favoritos' },
-        { nome: "Adicionar Videos", path: '/videos/adicionar' },
+        { nome: "Adicionar Video", path: '/videos/adicionar' },
     ];
     return rotas;
 }

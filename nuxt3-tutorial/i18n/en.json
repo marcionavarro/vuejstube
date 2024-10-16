@@ -1,0 +1,27 @@
+{
+    "en": {
+        "menu": {
+            "Inicio": "Home",
+            "Videos": "Videos",
+            "Clientes": "Customers",
+            "Favoritos": "Favorites",
+            "Adicionar Video": "Add video"
+        },
+        "titulo": "My Videos",
+        "tituloFavorito": "My Favorites",
+        "tituloClientes": "Customers",
+        "adicionarVideo": "Add video",
+        "carregando": "Loading",
+        "descricao": "Description",
+        "botaoRecarregar": "Recharge",
+        "botaoVerVideo": "Watch video",
+        "botaoSalvar": "Save",
+        "botaoEditar": "Edit",
+        "botaoExcluir": "Delete video",
+        "botaoExcluirFavorito": "Delete favorite",
+        "botaoVoltar": "Back",
+        "tituloSemFavoritos": "There are no favorites at the moment",
+        "descricaoSemFavoritos": "Click the button below and add your favorite videos",
+        "diretitosReservados": "All rights reserved"
+    }
+}

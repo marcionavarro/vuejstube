@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="text-4xl text-center my-5">{{ $t("tituloFavorito") }}</h1>
+      <h1 class="text-4xl text-center my-5">{{ t("tituloFavorito") }}</h1>
     </div>
 
     <div class="w-full">
@@ -12,8 +12,7 @@
           label: 'Videos',
           click: navigateToVideos
         }
-      ]" title="Não existem favoritos no momento!"
-        description="Clique no botão abaixo e adicione seus videos favoritos" />
+      ]" :title="t('tituloSemFavoritos') + '!'" :description="t('descricaoSemFavoritos') + '.'" />
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
@@ -35,14 +34,14 @@
               name: 'videos-id',
               params: { id: video.id.toString() }
             }">
-              <UButton label="Ver video" color="gray">
+              <UButton :label="t('botaoVerVideo')" color="gray">
                 <template #trailing>
                   <UIcon name="i-heroicons:eye-solid" class="w-5 h-5" />
                 </template>
               </UButton>
             </NuxtLink>
 
-            <UButton color="red" variant="link" label="Excluir favorito" @click="removeFavorito(video.id)">
+            <UButton color="red" variant="link" :label="t('botaoExcluirFavorito')" @click="removeFavorito(video.id)">
               <template #trailing>
                 <UIcon name="i-heroicons:trash" class="w-5 h-5" />
               </template>
@@ -57,16 +56,12 @@
 import { useVideoStore } from "~/stores/video";
 import { useRouter } from "vue-router";
 
-/* definePageMeta({
-  layout: 'exibicao'
-}) */
-
 const router = useRouter()
+const videoStore = useVideoStore();
 
 const { $toast } = useNuxtApp();
-
-const videoStore = useVideoStore();
 const { favoritos } = storeToRefs(videoStore);
+const { t } = useI18n();
 
 const removeFavorito = (id: number) => {
   videoStore.deletaFavorito(id);

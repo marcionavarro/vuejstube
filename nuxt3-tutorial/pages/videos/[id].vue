@@ -16,12 +16,12 @@
       <template #footer>
         <div class="flex justify-between items-center">
           <div>
-            <UButton icon="i-heroicons-pencil-square" size="sm" color="primary" variant="solid" label="Editar"
-              :trailing="false" @click="abrirModal" />
+            <UButton icon="i-heroicons-pencil-square" size="sm" color="primary" variant="solid"
+              :label="t('botaoEditar')" :trailing="false" @click="abrirModal" />
             <UModal v-model="isOpen">
               <div class="p-4">
                 <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
-                  <UFormGroup label="Descricão" name="descricao">
+                  <UFormGroup :label="t('descricao')" name="descricao">
                     <UInput v-model="state.descricao" />
                   </UFormGroup>
 
@@ -30,7 +30,7 @@
                   </UFormGroup>
 
                   <UButton type="submit">
-                    Salvar
+                    {{ t("botaoSalvar") }}
                   </UButton>
                 </UForm>
               </div>
@@ -39,11 +39,11 @@
 
           <div class="basis-46 justify-between items-center">
             <NuxtLink :to="{ name: 'videos' }">
-              <UButton label="Voltar" color="gray">
+              <UButton :label="t('botaoVoltar')" color="gray">
               </UButton>
             </NuxtLink>
 
-            <UButton color="red" variant="link" label="Excluir video" @click="deletarVideo">
+            <UButton color="red" variant="link" :label="t('botaoExcluir')" @click="deletarVideo">
               <template #trailing>
                 <UIcon name="i-heroicons:trash" class="w-5 h-5" />
               </template>
@@ -57,12 +57,17 @@
 
 <script setup lang="ts">
 import type { FormError, FormSubmitEvent } from "#ui/types";
+import { formataData } from "#imports";
+
 
 const route = useRoute();
-const { id } = route.params;
-const isOpen = ref<boolean>(false);
 const router = useRouter();
+const isOpen = ref<boolean>(false);
+
 const { $toast } = useNuxtApp();
+const { id } = route.params;
+const { t } = useI18n();
+
 
 const { data: video } = await useFetch(`/api/v1/videos/${id}`)
 

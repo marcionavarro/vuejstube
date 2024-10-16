@@ -19,9 +19,9 @@
       </div>
       <div :class="{ hidden: !isOpen, block: isOpen }" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <NuxtLink v-for="rota in rotasSistemas()" :key="rota.nome" :to="rota.path"
+          <NuxtLink v-for="rota in rotasSistemasDefault()" :key="rota.nome" :to="rota.path"
             class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            {{ rota.nome }}
+            {{ t(`menu.${rota.nome}`) }}
           </NuxtLink>
         </div>
         <div class="flex items-center gap-5">
@@ -37,12 +37,6 @@
 
           <USelect v-model="locale" icon="i-heroicons:globe-alt-solid" color="white" size="sm" :options="options"
             placeholder="Tradutor..." />
-
-          <!-- <select v-model="locale" class="ml-8">
-            <option selected>Tradutor...</option>
-            <option value="pt">pt</option>
-            <option value="en">en</option>
-          </select> -->
         </div>
       </div>
     </nav>
@@ -55,10 +49,13 @@
 </template>
 
 <script setup lang="ts">
+import { rotasSistemas } from '#imports';
 import Footer from '~/components/Footer.vue';
 
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 const colorMode = useColorMode();
+
+const rotasSistemasDefault = ref(rotasSistemas);
 
 const isOpen = ref(false);
 

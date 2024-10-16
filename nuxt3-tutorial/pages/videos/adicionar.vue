@@ -1,12 +1,12 @@
 <template>
   <div>
     <div>
-      <h1 class="text-4xl text-center my-5">{{ $t("adicionarVideo") }}</h1>
+      <h1 class="text-4xl text-center my-5">{{ t("adicionarVideo") }}</h1>
     </div>
 
     <UCard class="w-1/2 mx-auto mt-20 p-10">
       <UForm :validate="validate" :state="state" class="space-y-4 p-10" @submit="onSubmit">
-        <UFormGroup label="Descricão" name="descricao">
+        <UFormGroup :label="t('descricao')" name="descricao">
           <UInput v-model="state.descricao" />
         </UFormGroup>
 
@@ -15,7 +15,7 @@
         </UFormGroup>
 
         <UButton type="submit">
-          salvar
+          {{ t("botaoSalvar") }}
         </UButton>
       </UForm>
     </UCard>
@@ -27,6 +27,7 @@ import type { FormError, FormSubmitEvent } from "#ui/types";
 
 const router = useRouter();
 const { $toast } = useNuxtApp();
+const { t } = useI18n()
 
 const state = reactive({
   descricao: undefined,

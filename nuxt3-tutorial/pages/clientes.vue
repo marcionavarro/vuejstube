@@ -1,10 +1,10 @@
 <template>
     <div>
-        <h1 class="block text-5xl text-center my-5">Clientes</h1>
+        <h1 class="block text-5xl text-center my-5">{{ t("tituloClientes") }}</h1>
         <button @click="refresh" class="px-4 py-2 bg-green-400 shadow-md rounded-md mb-5">
-            Recarregar
+            {{ t("botaoRecarregar") }}
         </button>
-        <div v-if="status === 'pending'">Carregando...</div>
+        <div v-if="status === 'pending'">{{ t("carregando") }}...</div>
         <div v-else-if="error">{{ error.message }}</div>
         <div v-else class="grid md:grid-cols-3 sm:grid-cols-2 gap-4">
             <div v-for="cliente in clientes" :key="cliente.id" class="shadow-md px-4 py-2">
@@ -23,6 +23,7 @@
 
 <script setup>
 const pagina = ref(1)
+const { t } = useI18n();
 
 definePageMeta({
     pageTransition: {
