@@ -13,13 +13,17 @@ export default defineNuxtConfig({
     '@nuxt/ui'
   ],
   i18n: {
-    vueI18n: './i18n'
+    vueI18n: './i18n/index.ts'
   },
   pinia: {
     storesDirs: ['./stores/**'],
   },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
-    layoutTransition: { name: "layout", mode: "in-out" }
+    layoutTransition: { name: "layout", mode: "in-out" },
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1'
+    }
   }
 })

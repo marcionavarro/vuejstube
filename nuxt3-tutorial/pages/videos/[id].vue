@@ -5,28 +5,58 @@
         <div class="flex justify-between items-center">
           <h2>{{ video.descricao }}</h2>
 
-          <UBadge color="black" variant="solid" size="xs">
+          <UBadge
+            color="black"
+            variant="solid"
+            size="xs"
+          >
             {{ formataData(video.data_postagem) }}
           </UBadge>
         </div>
       </template>
 
-      <iframe class="h-[600px] w-full" :src="video.url" title="Youtube video player" frameborder="0" />
+      <iframe
+        class="h-[600px] w-full"
+        :src="video.url"
+        title="Youtube video player"
+        frameborder="0"
+      />
 
       <template #footer>
         <div class="flex justify-between items-center">
           <div>
-            <UButton icon="i-heroicons-pencil-square" size="sm" color="primary" variant="solid"
-              :label="t('botaoEditar')" :trailing="false" @click="abrirModal" />
+            <UButton
+              icon="i-heroicons-pencil-square"
+              size="sm"
+              color="primary"
+              variant="solid"
+              :label="t('botaoEditar')"
+              :trailing="false"
+              @click="abrirModal"
+            />
             <UModal v-model="isOpen">
               <div class="p-4">
-                <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
-                  <UFormGroup :label="t('descricao')" name="descricao">
+                <UForm
+                  :validate="validate"
+                  :state="state"
+                  class="space-y-4"
+                  @submit="onSubmit"
+                >
+                  <UFormGroup
+                    :label="t('descricao')"
+                    name="descricao"
+                  >
                     <UInput v-model="state.descricao" />
                   </UFormGroup>
 
-                  <UFormGroup label="Url" name="url">
-                    <UInput v-model="state.url" type="url" />
+                  <UFormGroup
+                    label="Url"
+                    name="url"
+                  >
+                    <UInput
+                      v-model="state.url"
+                      type="url"
+                    />
                   </UFormGroup>
 
                   <UButton type="submit">
@@ -39,29 +69,55 @@
 
           <div class="flex justify-between items-center">
             <NuxtLink :to="{ name: 'videos' }">
-              <UButton :label="t('botaoVoltar')" color="gray">
+              <UButton
+                :label="t('botaoVoltar')"
+                color="gray"
+              >
               </UButton>
             </NuxtLink>
 
-            <UButton icon="i-heroicons:trash" color="red" variant="link" :label="t('botaoExcluir')"
-              @click="abrirModalExcluir" />
+            <UButton
+              icon="i-heroicons:trash"
+              color="red"
+              variant="link"
+              :label="t('botaoExcluir')"
+              @click="abrirModalExcluir"
+            />
 
-            <UModal v-model="isOpenExcluir" prevent-close>
+            <UModal
+              v-model="isOpenExcluir"
+              prevent-close
+            >
               <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
                 <template #header>
                   <div class="flex justify-between">
                     <div class="flex items-end">
-                      <UIcon name="heroicons:arrow-turn-left-down-16-solid" class="mr-1" />
+                      <UIcon
+                        name="heroicons:arrow-turn-left-down-16-solid"
+                        class="mr-1"
+                      />
                       <span>Tem certeza que deseja deletar o video ?</span>
                     </div>
-                    <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
-                      @click="isOpenExcluir = false" />
+                    <UButton
+                      color="gray"
+                      variant="ghost"
+                      icon="i-heroicons-x-mark-20-solid"
+                      class="-my-1"
+                      @click="isOpenExcluir = false"
+                    />
                   </div>
                   {{ video.descricao }}
                 </template>
 
-                <UButton icon="i-heroicons:trash" size="sm" color="rose" variant="solid" :label="t('botaoExcluir')"
-                  :trailing="false" @click="deletarVideo" />
+                <UButton
+                  icon="i-heroicons:trash"
+                  size="sm"
+                  color="rose"
+                  variant="solid"
+                  :label="t('botaoExcluir')"
+                  :trailing="false"
+                  @click="deletarVideo"
+                />
 
               </UCard>
             </UModal>
@@ -75,7 +131,7 @@
 <script setup lang="ts">
 import type { FormError, FormSubmitEvent } from "#ui/types";
 import { formataData } from "#imports";
-
+import type { Video } from "~/interfaces/video";
 
 const route = useRoute();
 const router = useRouter();
@@ -86,14 +142,20 @@ const { $toast } = useNuxtApp();
 const { id } = route.params;
 const { t } = useI18n();
 
+const { data: video } = await useFetch<Video>(`/api/v1/videos/${id}`);
 
-const { data: video } = await useFetch(`/api/v1/videos/${id}`)
+useSeoMeta({
+  title: "Nuxt - SEO e META",
+  ogDescription: video.value?.descricao || "",
+  ogUrl: video.value?.url || "",
+  ogType: "video.other",
+});
 
 if (!video.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: "Vídeo não encontrado"
-  })
+    statusMessage: "Vídeo não encontrado",
+  });
 }
 
 const state = reactive({
@@ -134,8 +196,7 @@ const deletarVideo = async () => {
 
     setTimeout(() => {
       router.push("/videos");
-    }, 3000)
-
+    }, 3000);
   } catch (error) {
     $toast.error("Erro ao deletado com video!");
     console.log("error: ", error);
