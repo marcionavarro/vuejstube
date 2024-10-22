@@ -9,10 +9,10 @@
       />
       <Style
         type="text/css"
-        children="body {background-color: green;}"
+        children="body {background-color: #fff;}"
       ></Style>
     </Head>
-    <h1 class="block text-5xl text-center my-5">{{ t("tituloClientes") }}</h1>
+    <h1 class="barlow-black block text-5xl text-center my-5">{{ t("tituloClientes") }}</h1>
     <button
       @click="refresh"
       class="px-4 py-2 bg-green-400 shadow-md rounded-md mb-5"
