@@ -85,6 +85,10 @@ import { ref, computed } from "vue";
 import type { Video } from "~/interfaces/video";
 import { useVideoStore } from "~/stores/video";
 
+definePageMeta({
+  middleware: ['auth']
+})
+
 const { t } = useI18n();
 const { $toast } = useNuxtApp();
 

@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   dev: process.env.NODE_ENV !== 'production',
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   alias: {
     css: "/<rootDir>/assets/css"
   },
@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/i18n',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    'nuxt-auth-utils'
   ],
   i18n: {
     vueI18n: './i18n'
@@ -25,5 +26,19 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1'
     }
-  }
+  },
+  runtimeConfig: {
+    oauth : {
+      // provider in lowercase (github, google, etc.)
+      Google: {
+        clientId: process.env.NUXT_OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET
+      },
+      OAUTH: {
+        clientId: process.env.NUXT_OAUTH_AUTH0_CLIENT_ID,
+        clientSecret: process.env.NUXT_OAUTH_AUTH0_CLIENT_SECRET,
+        domain: process.env.NUXT_OAUTH_AUTH0_DOMAIN,
+      }
+    }
+  },
 })

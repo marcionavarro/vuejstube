@@ -37,6 +37,9 @@
 
           <USelect v-model="locale" icon="i-heroicons:globe-alt-solid" color="white" size="sm" :options="options"
             placeholder="Tradutor..." />
+            <ClientOnly v-if="loggedIn">
+              <LayoutDropdowUsuario />
+            </ClientOnly>
         </div>
       </div>
     </nav>
@@ -54,10 +57,9 @@ import Footer from '~/components/Footer.vue';
 
 const { locale, t } = useI18n();
 const colorMode = useColorMode();
-
 const rotasSistemasDefault = ref(rotasSistemas);
-
 const isOpen = ref(false);
+const { loggedIn } = useUserSession();
 
 const options = ref([
   { label: 'Português', value: 'pt' },
