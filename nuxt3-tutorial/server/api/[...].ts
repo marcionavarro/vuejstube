@@ -2,10 +2,10 @@ import * as videoController from "../controllers/video"
 
 const router = createRouter()
 
-router.get('/videos', defineEventHandler(videoController.buscaVideos))
-router.get('/videos/:id', defineEventHandler(videoController.buscaVideoPorId))
-router.post('/videos', defineEventHandler(videoController.adicionaVideo))
-router.put('/videos/:id', defineEventHandler(videoController.atualizaVideo))
-router.delete('/videos/:id', defineEventHandler(videoController.deletaVideo))
+router.get('/videos', defineEventHandler(videoController.buscarTodos))
+router.get('/videos/:id', defineEventHandler(videoController.buscarPorId))
+router.post('/videos', defineEventHandler(videoController.adicionar))
+router.put('/videos/:id', defineEventHandler(videoController.atualizar))
+router.delete('/videos/:id', defineEventHandler(videoController.deletar))
 
 export default useBase('/api/v1', router.handler)

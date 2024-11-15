@@ -17,9 +17,9 @@
           </svg>
         </button>
       </div>
-      <div :class="{ hidden: !isOpen, block: isOpen }" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div class="text-sm lg:flex-grow">
-          <NuxtLink v-for="rota in rotasSistemasDefault()" :key="rota.nome" :to="rota.path"
+      <div :class="{ hidden: !isOpen, block: isOpen }" class="w-full block lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm" v-for="rota in rotasSistemasDefault()" :key="rota.nome">
+          <NuxtLink  v-if="!rota.permissao || rota.permissao === user?.permissao" :to="rota.path"
             class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
             {{ t(`menu.${rota.nome}`) }}
           </NuxtLink>
@@ -43,7 +43,7 @@
         </div>
       </div>
     </nav>
-    <UContainer class="my-10 h-dvh">
+    <UContainer class="pb-40">
       <slot></slot>
     </UContainer>
 
@@ -59,7 +59,7 @@ const { locale, t } = useI18n();
 const colorMode = useColorMode();
 const rotasSistemasDefault = ref(rotasSistemas);
 const isOpen = ref(false);
-const { loggedIn } = useUserSession();
+const { loggedIn, user } = useUserSession();
 
 const options = ref([
   { label: 'Português', value: 'pt' },

@@ -1,12 +1,11 @@
 <template>
   <div>
-
     <Head>
       <Title>Clientes</Title>
       <Meta name="description" content="Teste" />
       <Style type="text/css" children="body {background-color: #fff;}"></Style>
     </Head>
-    <h1 class="barlow-black block text-5xl text-center my-5">{{ t("tituloClientes") }}</h1>
+    <h1 class="barlow-black block text-5xl text-center mt-10 mb-20">{{ t("tituloClientes") }}</h1>
     <button @click="refresh"
       class="text-white px-4 py-2 bg-green-400 shadow-md rounded-md mb-5 disabled:bg-teal-300 disabled:cursor-not-allowed"
       :disabled="status === 'pending'">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="barlow-black text-4xl text-center my-5">{{ t("titulo") }}</h1><!-- #14B8A6 -->
+      <h1 class="barlow-black text-4xl text-center mt-10 mb-20">{{ t("titulo") }}</h1><!-- #14B8A6 -->
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-3 items-stretch justify-center gap-4">

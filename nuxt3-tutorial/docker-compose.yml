@@ -5,12 +5,15 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      PGHOST: postgres-compose
-      PGUSER: admin
-      PGPASSWORD: admin123
-      PGDATABASE: nuxt_tutorial
-      PGPORT: 5432
+      PG_HOST: ${PG_HOST}
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DATABASE: ${PG_DATABASE}
+      PG_PORT: ${PG_PORT}
+      DATABASE_URL: ${DATABASE_URL}
     volumes:
       - .:/app
       - /node_modules
@@ -26,20 +29,24 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "15432:5432"
+    env_file:
+      - .env
     environment:
-      POSTGRES_PASSWORD: "admin123"
-      POSTGRES_USER: "admin"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - postgres-compose-network
 
   pgadmin-compose:
     container_name: pgadmin_compose
     image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
-      PGADMIN_DEFAULT_PASSWORD: "admin123"
     ports:
       - "16543:80"
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     depends_on:
       - postgres-compose
     networks:

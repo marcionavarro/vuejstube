@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <h1 class="barlow-black text-4xl text-center my-5">{{ t("adicionarVideo") }}</h1>
+      <h1 class="barlow-black text-4xl text-center mt-10 mb-20">{{ t("adicionarVideo") }}</h1>
     </div>
 
-    <UCard class="w-1/2 mx-auto mt-20 p-10">
+    <UCard class="w-1/2 mx-auto">
       <UForm
         :validate="validate"
         :state="state"
@@ -14,6 +14,7 @@
         <UFormGroup
           :label="t('descricao')"
           name="descricao"
+          size="xl"
         >
           <UInput v-model="state.descricao" />
         </UFormGroup>
@@ -21,6 +22,7 @@
         <UFormGroup
           label="Url"
           name="url"
+          size="xl"
         >
           <UInput
             v-model="state.url"
@@ -28,7 +30,7 @@
           />
         </UFormGroup>
 
-        <UButton type="submit">
+        <UButton type="submit" size="xl">
           {{ t("botaoSalvar") }}
         </UButton>
       </UForm>
@@ -39,6 +41,12 @@
 <script setup lang="ts">
 import type { FormError, FormSubmitEvent } from "#ui/types";
 
+definePageMeta({
+  middleware: ['auth'],
+  permissao: 'ADMINISTRADOR'
+})
+
+const { user } = useUserSession();
 const router = useRouter();
 const { $toast } = useNuxtApp();
 const { t } = useI18n();
@@ -59,10 +67,16 @@ async function onSubmit(event: FormSubmitEvent<any>) {
   try {
     await $fetch("/api/v1/videos", {
       method: "POST",
-      body: state,
+      body: {
+        ...state,
+        usuarioId: user.value?.usuarioId
+      },
     });
-    router.push("/videos");
-    $toast.success("Video adicionado com sucesso!");
+    $toast.success("Video adicionado com sucesso!")
+    setTimeout(() => {
+      router.push("/videos");
+    }, 2000);
+    
   } catch (error) {
     $toast.error("Erro ao adicionar com video!");
     console.log("error: ", error);
