@@ -5,9 +5,15 @@ FROM node:20
 WORKDIR /app
 #WORKDIR /frontend
 
+# Definir a variável de ambiente para npm install
+ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+
 # Copia o package.json e instala as dependências
 COPY package*.json ./
 RUN npm install
+
+# Remover a variável de ambiente após o npm install
+ENV NODE_TLS_REJECT_UNAUTHORIZED=1
 
 # Copia o código da aplicação
 COPY . .
