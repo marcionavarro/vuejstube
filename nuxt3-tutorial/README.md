@@ -1,4 +1,4 @@
-# VueJsTube &nbsp;🎬
+# Nuxt 3 &nbsp;🎬
 
 ![Nuxt](https://img.shields.io/badge/Nuxt-3.x-green?logo=nuxtdotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.x-blue?logo=typescript)
