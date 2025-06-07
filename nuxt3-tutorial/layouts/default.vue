@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
-    <nav class="flex items-center justify-between flex-wrap bg-[#00c16a] p-6">
-      <div class="flex items-center flex-shrink-0 text-white mr-6">
+    <nav class="w-full p-4 bg-white border-t border-gray-800 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 mb-12">
+      <div class="flex items-center flex-shrink-0  dark:text-gray-400 mr-6">
         <NuxtLink to="/">
           <span class="font-semibold text-xl tracking-tight">Marcio Navarro</span>
         </NuxtLink>
       </div>
       <div class="block lg:hidden">
         <button
-          class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
+          class="flex items-center px-3 py-2 border rounded  dark:text-gray-400 border-teal-400 hover:text-white hover:border-white"
           @click="toggleMenu"
         >
           <svg
@@ -42,7 +42,7 @@
           <NuxtLink
             v-if="!rota.permissao || rota.permissao === user?.permissao"
             :to="rota.path"
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            class="block mt-4 lg:inline-block lg:mt-0  dark:text-gray-400 hover:text-white mr-4"
           >
             {{ t(`menu.${rota.nome}`) }}
           </NuxtLink>
